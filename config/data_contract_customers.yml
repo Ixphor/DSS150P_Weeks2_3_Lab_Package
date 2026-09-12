@@ -1,0 +1,47 @@
+dataset: customers
+owner: "Data Engineering (Placeholder)"
+source_type: csv
+primary_key: customer_id
+delivery:
+  cadence: "Daily Batch"
+fields:
+  - name: customer_id
+    type: string
+    nullable: false
+    unique: true
+  - name: first_name
+    type: string
+    nullable: false
+    unique: false
+  - name: last_name
+    type: string
+    nullable: false
+    unique: false
+  - name: email
+    type: string
+    nullable: true
+    unique: true
+  - name: city
+    type: string
+    nullable: true
+    unique: false
+  - name: signup_date
+    type: date
+    nullable: false
+    unique: false
+  - name: customer_segment
+    type: string
+    nullable: false
+    unique: false
+quality_rules:
+  - "customer_id must be completely unique and non-null."
+  - "email must conform to a standard valid email format if present."
+  - "signup_date must not be a future date."
+  - "first_name and last_name must not be null or empty strings."
+  - "customer_segment must belong to an approved list of segments."
+change_policy:
+  schema_change_notice: "Producers must notify the Data Engineering team at least 30 days prior to schema additions, deletions, or type changes."
+  contact_escalation: "derekthedataeng@placeholder.com"
+ingestion_approach:
+  method: "Full Load"
+  justification: "The CSV file does not contain an 'updated_at' column or a Change Data Capture (CDC) mechanism, so a full file replacement is the safest ingestion method."

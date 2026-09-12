@@ -1,0 +1,114 @@
+---
+source_name: "customers"
+source_type: "CSV"
+location_or_endpoint: "data/customers.csv"
+owner: "Data Engineering"
+description: "Customer demographic and segmentation data"
+record_count: "250"
+schema: 
+  - customer_id: string
+  - first_name: string
+  - last_name: string
+  - email: string
+  - city: string
+  - signup_date: string (logical date)
+  - customer_segment: string
+primary_or_candidate_key: "customer_id"
+update_pattern: "Batch Full Load"
+known_quality_issues: 
+  - "2 exact duplicate rows"
+  - "customer_id is not unique"
+  - "3 missing email values"
+  - "2 missing city values"
+acquisition_method: "File copy + manifest"
+validation_checks: 
+  - "customer_id must be unique and non-null"
+  - "email must be formatted correctly if present"
+  - "signup_date must not be in the future"
+
+---
+source_name: "orders"
+source_type: "JSON"
+location_or_endpoint: "data/orders.json"
+owner: "Sales Operations"
+description: "Customer order transactions with nested shipping information"
+record_count: "250"
+schema: 
+  - order_id: integer
+  - customer_id: string
+  - order_timestamp: string (logical timestamp)
+  - status: string
+  - item_count: integer
+  - subtotal: float
+  - shipping_fee: float
+  - total_amount: float
+  - shipping: object (nested dictionary)
+primary_or_candidate_key: "order_id"
+update_pattern: "Batch Incremental"
+known_quality_issues: []
+acquisition_method: "File copy + manifest"
+validation_checks: 
+  - "order_id must be unique and non-null"
+  - "total_amount should equal subtotal plus shipping_fee"
+
+---
+source_name: "products"
+source_type: "Parquet"
+location_or_endpoint: "data/products.parquet"
+owner: "Product Management"
+description: "Product catalog and inventory status"
+record_count: "See terminal profiling output"
+schema: 
+  - "See terminal profiling output for exact dtypes"
+primary_or_candidate_key: "product_id"
+update_pattern: "Batch Full Load"
+known_quality_issues: []
+acquisition_method: "File copy + manifest"
+validation_checks: 
+  - "product_id must be unique and non-null"
+
+---
+source_name: "api_events"
+source_type: "REST API"
+location_or_endpoint: "http://127.0.0.1:8000/api/events"
+owner: "Platform Team"
+description: "Paginated stream of system events"
+record_count: "Dynamic (Unknown until fully paginated)"
+schema: 
+  - event_id: string
+  - updated_at: string (logical timestamp)
+  - amount: float
+  - metadata: object (nested dictionary)
+primary_or_candidate_key: "event_id"
+update_pattern: "Incremental"
+known_quality_issues: 
+  - "Intentionally contains duplicate event_id values"
+acquisition_method: "Paginated GET requests"
+validation_checks: 
+  - "event_id must be present"
+  - "updated_at must be a valid timestamp"
+
+---
+source_name: "support_tickets"
+source_type: "PostgreSQL Table"
+location_or_endpoint: "dss150p.public.support_tickets"
+owner: "Customer Support"
+description: "Operational support ticket records"
+record_count: "250"
+schema: 
+  - ticket_id: integer
+  - customer_id: varchar(10)
+  - category: varchar(40)
+  - priority: varchar(10)
+  - assigned_agent: varchar(80)
+  - opened_at: timestamp
+  - resolved_at: timestamp
+  - status: varchar(20)
+primary_or_candidate_key: "ticket_id"
+update_pattern: "Incremental / CDC"
+known_quality_issues: 
+  - "4 tickets have a null assigned_agent"
+acquisition_method: "Inspection only (in this lab)"
+validation_checks: 
+  - "ticket_id must be unique and not null"
+  - "opened_at must be less than or equal to resolved_at"
