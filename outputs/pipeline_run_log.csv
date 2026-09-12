@@ -1,0 +1,13 @@
+run_id,started_at,finished_at,status,source,records_read,records_written,duplicates_removed,watermark_before,watermark_after,error_message
+013ddba3-c171-4188-aba6-3f6694e91791,2026-09-12T14:59:13.502343+00:00,2026-09-12T14:59:13.505401+00:00,Success,customers.csv,1,1,0,,,
+013ddba3-c171-4188-aba6-3f6694e91791,2026-09-12T14:59:13.502343+00:00,2026-09-12T14:59:13.508165+00:00,Success,orders.json,1,1,0,,,
+013ddba3-c171-4188-aba6-3f6694e91791,2026-09-12T14:59:13.502343+00:00,2026-09-12T14:59:13.511491+00:00,Success,products.parquet,1,1,0,,,
+48093a73-7c31-4442-84d4-7c456f0654cd,2026-09-12T14:59:13.515275+00:00,2026-09-12T14:59:13.545715+00:00,Success,REST API,122,120,2,,2026-08-21T10:00:00,
+d2852e53-d2a5-4bf7-bea8-f52eb401c40a,2026-09-12T14:59:19.077667+00:00,2026-09-12T14:59:19.090071+00:00,Skipped,customers.csv,0,0,0,,,
+d2852e53-d2a5-4bf7-bea8-f52eb401c40a,2026-09-12T14:59:19.077667+00:00,2026-09-12T14:59:19.091138+00:00,Skipped,orders.json,0,0,0,,,
+d2852e53-d2a5-4bf7-bea8-f52eb401c40a,2026-09-12T14:59:19.077667+00:00,2026-09-12T14:59:19.092119+00:00,Skipped,products.parquet,0,0,0,,,
+c760806d-e371-48f9-bce3-2bc7150b9561,2026-09-12T14:59:19.092819+00:00,2026-09-12T14:59:19.096566+00:00,Success,REST API,0,0,0,2026-08-21T10:00:00,2026-08-21T10:00:00,
+dd78ba66-ca43-4015-8ed9-2baaf604bb66,2026-09-12T14:59:30.256595+00:00,2026-09-12T14:59:30.258006+00:00,Skipped,customers.csv,0,0,0,,,
+dd78ba66-ca43-4015-8ed9-2baaf604bb66,2026-09-12T14:59:30.256595+00:00,2026-09-12T14:59:30.258996+00:00,Skipped,orders.json,0,0,0,,,
+dd78ba66-ca43-4015-8ed9-2baaf604bb66,2026-09-12T14:59:30.256595+00:00,2026-09-12T14:59:30.260089+00:00,Skipped,products.parquet,0,0,0,,,
+2816e375-cb65-414a-8420-ac29c48dd1a9,2026-09-12T14:59:30.260945+00:00,2026-09-12T14:59:32.303873+00:00,Failed,REST API,0,0,0,2026-08-21T10:00:00,2026-08-21T10:00:00,"HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /api/events?page=1&per_page=50&updated_after=2026-08-21T10%3A00%3A00 (Caused by NewConnectionError(""HTTPConnection(host='127.0.0.1', port=8000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it""))"
